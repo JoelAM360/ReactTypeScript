@@ -1,0 +1,76 @@
+import { useEffect, useState, useMemo, useCallback, useRef } from "react"
+import { InputLogin } from "./components/InputLogin"
+import { useUsuarioLogado } from "../../shared/hooks/";
+
+export const Login = () => {
+    const [email, setEmail] = useState("")
+    const [password, setPassword] = useState("")
+    const inputPassword = useRef<HTMLInputElement>(null)
+    const { nomeDoUsuario, setNomeDoUsuario, logout } = useUsuarioLogado()
+
+    /*useEffect(() => {
+        alert("Teste")
+    })
+
+    useEffect(() => {
+        if (window.confirm('Você é homem?')) {
+            alert("Sou Homem, poha!!!")
+        } else {
+            alert("Disse não, mas tbm sou homem poha!!")
+        }
+    }, [])
+
+    useEffect(() => {
+       // alert(email)
+    }, [email, password])*/
+
+    const emailLength = useMemo(() => {
+        console.log("Executou!");
+
+        return email.length * 1000
+    }, [email.length])
+
+    useCallback(() => {
+
+    }, [])
+
+
+    const handleEntrar = useCallback(() => {
+        console.log(email);
+        console.log(password);
+        if (email)
+            setNomeDoUsuario ? setNomeDoUsuario(email) : null
+        console.log(inputPassword.current?.value)
+
+    }, [email, password])
+
+    useEffect(() => {
+        handleEntrar()
+    }, [])
+
+    return (
+        <div>
+            <p>Tamanho do Email: {emailLength}</p>
+            <h2>Nome: {nomeDoUsuario}</h2>
+            <form action="">
+                <InputLogin
+                    value={email}
+                    label={"Nome"}
+                    onChange={newValue => setEmail(newValue)} />
+                <InputLogin
+                    value={email}
+                    label={"Email"}
+                    onChange={newValue => setEmail(newValue)} />
+
+                <InputLogin type="password"
+                    ref={inputPassword}
+                    value={password}
+                    label={"Password"}
+                    onChange={newValue => setPassword(newValue)} />
+
+                <button type="button" onClick={handleEntrar}>Entrar</button>
+                <button type="button" onClick={logout}>Logout</button>
+            </form>
+        </div>
+    )
+}

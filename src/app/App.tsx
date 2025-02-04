@@ -1,10 +1,13 @@
 import '../App.css'
 import Routes from './routes'
+import { UsuarioLogado } from './shared/contexts'
 
 
 function App() {
   return (
-   <Routes />
+    <UsuarioLogado>
+      <Routes />
+    </UsuarioLogado>
   )
 }
 
